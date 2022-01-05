@@ -5,20 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
+
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 
 
 <body>
-
+    <br>
     <header>
         <h1>Ready for a timed quiz on JavaScript fundamentals ?</h1>
     </header>
     <br>
+
     
     
+    <div class="d-grid gap-2 col-1 mx-auto">
+        <button id=startBtn type="button" class="btn btn-success btn-primary btn-lg">Start</button>
+    </div>
+    
+    
+    <!-- <button class="btn btn-primary me-md-2" type="button">Button</button>
+    <button class="btn btn-primary" type="button">Button</button> -->
+
+
+    <br>
+
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non dolor ipsa quis minus unde, iure temporibus rerum est quod doloribus necessitatibus eius. Repudiandae, ea eveniet! Illum labore cupiditate voluptatibus corrupti!</p>
+
+    <br>
+
+    <h3>Top 3 Scores</h3>
+
+    <br>
+
+    <table class="table table-striped table-bordered border-primary table-sm">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Initials</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>BD</td>
+            <td>100</td>
+          </tr>
+            <th scope="row">2</th>
+            <td>BD</td>
+            <td>80</td>
+          </tr>
+            <th scope="row">3</th>
+            <td>JD</td>
+            <td>50</td>
+          </tr>
+
+          </tr>
+        </tbody>
+      </table>
     
     <script src="./assets/js/script.js"></script>
 </body>

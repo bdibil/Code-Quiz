@@ -1,6 +1,19 @@
 
 /* check if ccs is linked */
-html {
+/* html {
 	background-color: aquamarine
+} */
+
+header{
+	text-align: center;
+	color: brown;
+}
+
+h3{
+	text-align: center;
+}
+
+p{
+	text-align: center;
 }
 
