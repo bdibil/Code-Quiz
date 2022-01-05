@@ -12,11 +12,11 @@
 
 ## Link to the live site
 
-  https://bdibil.github.io/Password-Generator/
+ https://bdibil.github.io/Code-Quiz/
   
 
 ## Screenshot
 
-  ![](screenshot.png)
+![](assets/images/screenshot.png)
 
   
