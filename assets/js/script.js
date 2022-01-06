@@ -3,44 +3,54 @@ var startBtnEl = $('#startBtn');
 var stopBtnEl = $('#stop-btn');
 
 var startTime = 0;
-var timeLeft = 90;
+var timeLeft = 60;
 var timeNow = 0;
-var timeDelta = 59;
+var timeDelta = 0;
+var dummy = 10;
 
 
+// Timer function handler 
 
-// Change the event listener to `click` to make the event trigger on single-click
+function timeFunction(){
+  
+    if (timeLeft>0) {
+      timeLeft--
+      dummy++
+      // console.log(timeLeft);
+    }
+    timeNow = moment().format("X");
+    timeDelta = timeNow-startTime;
+    $("#t1").text(timeLeft);
 
-
-startBtnEl.on('click', function () {
-  startTime = moment().format("X");
-    $("#t2").text(startTime);    
-    // timeNow = startTime+1;
-
-    console.log(startTime)
-    console.log(timeDelta)
- 
+    if (timeLeft===0) {
+      dummy = 0
+    //   console.log(timeNow);
+    }
+  
+  }
+  
+  
+  // Event listener Start 
+  
+  startBtnEl.on('click', function() {
+    if (startTime===0) {
+      setInterval(timeFunction,1000)
+      startTime = moment().format("X");
+      console.log(startTime);
+    }
     
-    do {
-      timeNow = moment().format("X");
-      $("#t3").text(timeNow);
-      timeDelta = timeNow-startTime;
-      
-      timeLeft = timeLeft-timeDelta
-      
-      $("#t1").text(timeLeft);
-    
-    
-    } while (timeLeft>0);
-
-
-    console.log(timeDelta)
-
-    
+    if (dummy===0) {
+        startTime = moment().format("X");
+        console.log(startTime);
+        timeLeft = 10
+    }
+  
   });
   
-
   
+  
+
+
 
 
 
