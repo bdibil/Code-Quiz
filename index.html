@@ -17,45 +17,39 @@
   <nav class="navbar sticky-top navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">High Scores</a>
-
       <section>
         <p>Time left:</p>
         <p id="t1" class="timer">60</p>
-        
-        <!-- <p id="t2" class="timer"></p>
-        <p>Start time </p> -->
-          
-        <!-- <p>Time NOW</p>
-        <p id="t3" class="timer"></p> -->
-
     </section>
-
-
-      <!-- Insert timer here Justify right  -->
-
-
     </div>
   </nav>
 
-
-
-
     <br>
-    <header>
+    <header id="title" class="header">
         <h1>Ready for a timed quiz on JavaScript fundamentals ?</h1>
     </header>
     <br>
 
     
     <div class="d-grid gap-2 col-1 mx-auto">
-        <button id=startBtn type="button" class="btn btn-success btn-primary btn-lg">Start</button>
+        <button id="start" type="button" class="btn btn-success btn-primary btn-lg">Start</button>
     </div>
     
   
 
     <br>
 
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non dolor ipsa quis minus unde, iure temporibus rerum est quod doloribus necessitatibus eius. Repudiandae, ea eveniet! Illum labore cupiditate voluptatibus corrupti!</p>
+    <div id="game" class="container list-group d-none" style="text-align: center;">
+      <h2 id="currentQ" class="list-group-item">currentQ</h2>
+      <button id="ans1" type="button" class="list-group-item list-group-item-action">ans 1</button>
+      <button id="ans2" type="button" class="list-group-item list-group-item-action">ans 2</button>
+      <button id="ans3" type="button" class="list-group-item list-group-item-action">ans 3</button>
+      <button id="ans4" type="button" class="list-group-item list-group-item-action">ans 4</button>
+    </div>
+  
+
+
+
 
     <br>
 
@@ -65,7 +59,7 @@
     
     <!-- Table is hidden on page load (.d-none) AND h3 color white -->
     
-    <table class="table d-none table-striped table-bordered border-primary table-sm">
+    <table id="scores" class="d-none container table table-striped table-bordered border-primary table-sm col-2" style="text-align: center;" >
       <h3>Top 3 Scores</h3>
       <thead>
         <tr>
