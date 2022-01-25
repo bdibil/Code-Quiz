@@ -18,6 +18,8 @@ var timeLeft = 60;
 var timeNow = 0;
 var timeDelta = 0;
 var dummy = 10;
+let endTime = 0;
+let score = 0;
 
 
 
@@ -116,15 +118,30 @@ function randomizer(){
 
 
 function nextQ(){
-  console.log(usedQs)
+  if (timeLeft===0) {
+    gameOver()
+  }
   let next = randomizer()
   displayQs(next)
+}
+
+function gameOver(){
+  endTime = moment().format("X");
+  console.log(endTime)
+  score = endTime - startTime
+  score = score * usedQs.length
+  console.log("Total Score")
+  console.log(score)
+  gameTable.classList.add('d-none');
+  // titleEl.classList.add('d-none');
+  // startBtn.classList.remove('d-none');
+  scoresTable.classList.remove('d-none')
 }
 
 
 function checkAnswer1 (){
   let userAnswer = 0
-  if (correctAnswer!==userAnswer) {
+  if (correctAnswer!==userAnswer&&timeLeft>5) {
     timeLeft = timeLeft-5
   }
   nextQ()
@@ -132,7 +149,7 @@ function checkAnswer1 (){
 
 function checkAnswer2 (){
   let userAnswer = 1
-  if (correctAnswer!==userAnswer) {
+  if (correctAnswer!==userAnswer&&timeLeft>5) {
     timeLeft = timeLeft-5
   }
   nextQ()
@@ -140,7 +157,7 @@ function checkAnswer2 (){
 
 function checkAnswer3 (){
   let userAnswer = 2
-  if (correctAnswer!==userAnswer) {
+  if (correctAnswer!==userAnswer&&timeLeft>5) {
     timeLeft = timeLeft-5
   }
   nextQ()
@@ -148,7 +165,7 @@ function checkAnswer3 (){
 
 function checkAnswer4 (){
   let userAnswer = 3
-  if (correctAnswer!==userAnswer) {
+  if (correctAnswer!==userAnswer&&timeLeft>5) {
     timeLeft = timeLeft-5
   }
   nextQ()
