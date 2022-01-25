@@ -37,16 +37,20 @@ const q05 = new Question('How do you call a function named "myFunction"?', ['cal
 const q06 = new Question('How to write an IF statement for executing some code if "i" is NOT equal to 5?', ['if i != 5 then', 'if (i <> 5)', 'if (i != 5)', 'if i =! 5'], 2)
 const q07 = new Question('How does a FOR loop start?', ['for (i = 0; i <= 5; i++)', 'for (i <= 5; i++)', 'for (i = 0; i <= 5)', 'for i = 1 to 5'], 0)
 const q08 = new Question('How can you add a comment in a JavaScript?', ['<!--This is a comment-->', '‘*This is a comment', 'add.comment(This is a comment)', '//This is a comment'], 3)
-const q09 = new Question('What is the correct way to write a JavaScript array?', ['var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', 'var colors = ["red", "green", "blue"]', 'var colors = "red", "green", "blue"'], 1)
+const q09 = new Question('What is the correct way to write a JavaScript array?', ['var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', 'var colors = ["red", "green", "blue"]', 'var colors = "red", "green", "blue"', 'colors = red, green, blue'], 1)
 const q10 = new Question('How do you round the number 7.25, to the nearest integer?', ['Math.rnd(7.25)', 'rnd(7.25)', 'Math.round(7.25)', 'Round(7.25)'], 2)
 const q11 = new Question('Which event occurs when the user clicks on an HTML element?', ['onclick', 'onmouseover', 'onmouseclick', 'hover'], 0)
 const q12 = new Question('How do you declare a JavaScript variable?', ['variable carName;', 'v carName;', 'carName.isVariable;', 'var carName;'], 3)
 const q13 = new Question('Which operator is used to assign a value to a variable?', ['+', '=', '*', '-'], 1)
 const q14 = new Question('What is the correct syntax for referring to an external script called "xxx.js"?', ['<script href="xxx.js">', '<script === xxx.js">', '<script src="xxx.js">', '<script name="xxx.js">'], 2)
-const q15 = new Question('How does a WHILE loop start?', ['while (i <= 10; i++)', 'while i = 1 to 10', 'while (i <= 10)'], 0)
+const q15 = new Question('How does a WHILE loop start?', ['while (i <= 10; i++)', 'while i = 1 to 10', 'while (i <= 10)', 'do while i === i'], 0)
+
 
 const questArray = [q01, q02, q03, q04, q05, q06, q07, q08, q09, q10, q11, q12 , q13, q14, q15]
-
+let usedQs = []
+let currentQuestion = 20
+let userAnswer = 20
+let correctAnswer = 20
 
 
 // Timer function handler 
@@ -63,44 +67,101 @@ function timeFunction(){
 
     if (timeLeft===0) {
       dummy = 0
-    //   console.log(timeNow);
+      //   console.log(timeNow);
     }
-  
   }
   
-
-// Starts timer and shows table wih Questions
-function startGame() {
-  if (startTime===0) {
-    setInterval(timeFunction,1000)
+  
+  // Starts timer and shows table wih Questions
+  function startGame() {
+    if (startTime===0) {
+      setInterval(timeFunction,1000)
     startTime = moment().format("X");
     console.log(startTime);
   }
   if (dummy===0) {
-      startTime = moment().format("X");
-      console.log(startTime);
+    startTime = moment().format("X");
+    console.log(startTime);
       timeLeft = 10
-  }
+    }
     gameTable.classList.remove('d-none');
     titleEl.classList.add('d-none');
     startBtn.classList.add('d-none');
-    displayQs()
-}
+    let rand = Math.floor(Math.random()*15)
+    displayQs(rand)
+  }
   
+  
+function displayQs(num){
+  let randQ = num
+  currentQEl.textContent = questArray[randQ].text
+  ansBtn1.textContent = questArray[randQ].choices[0]
+  ansBtn2.textContent = questArray[randQ].choices[1]
+  ansBtn3.textContent = questArray[randQ].choices[2]
+  ansBtn4.textContent = questArray[randQ].choices[3]
+  correctAnswer = questArray[randQ].correct
+  console.log("Correct Ans is:")
+  console.log(correctAnswer)
+  // console.log(typeof(correctAnswer))
+  usedQs.push(randQ)
+  // currentQuestion = randQ 
+  // nextQ()
+}
 
-function displayQs (){
-  currentQEl.textContent = q01.text
-  ansBtn1.textContent = q01.choices[0]
-  ansBtn2.textContent = q01.choices[1]
-  ansBtn3.textContent = q01.choices[2]
-  ansBtn4.textContent = q01.choices[3]
 
+function randomizer(){
+  let rand = Math.floor(Math.random()*15)
+  return rand
+}
+
+
+function nextQ(){
+  console.log(usedQs)
+  let next = randomizer()
+  displayQs(next)
+}
+
+
+function checkAnswer1 (){
+  let userAnswer = 0
+  if (correctAnswer!==userAnswer) {
+    timeLeft = timeLeft-5
+  }
+  nextQ()
+}
+
+function checkAnswer2 (){
+  let userAnswer = 1
+  if (correctAnswer!==userAnswer) {
+    timeLeft = timeLeft-5
+  }
+  nextQ()
+}
+
+function checkAnswer3 (){
+  let userAnswer = 2
+  if (correctAnswer!==userAnswer) {
+    timeLeft = timeLeft-5
+  }
+  nextQ()
+}
+
+function checkAnswer4 (){
+  let userAnswer = 3
+  if (correctAnswer!==userAnswer) {
+    timeLeft = timeLeft-5
+  }
+  nextQ()
 }
 
 
 
-  // Event listener Start Btn
+  // Event listeners 
   startBtn.addEventListener('click', startGame)
+  ansBtn1.addEventListener('click', checkAnswer1)
+  ansBtn2.addEventListener('click', checkAnswer2)
+  ansBtn3.addEventListener('click', checkAnswer3)
+  ansBtn4.addEventListener('click', checkAnswer4)
 
 
 
