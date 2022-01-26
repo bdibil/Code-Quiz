@@ -20,6 +20,7 @@ var timeDelta = 0;
 var dummy = 10;
 let endTime = 0;
 let score = 0;
+let timeInter = 0;
 
 
 
@@ -50,6 +51,12 @@ const q15 = new Question('How does a WHILE loop start?', ['while (i <= 10; i++)'
 
 const questArray = [q01, q02, q03, q04, q05, q06, q07, q08, q09, q10, q11, q12 , q13, q14, q15]
 let usedQs = []
+let newArray = []
+let qsUsed = []
+let qsLeft = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+let next = 20
+let stopRandom = false
+
 let currentQuestion = 20
 let userAnswer = 20
 let correctAnswer = 20
@@ -69,15 +76,19 @@ function timeFunction(){
 
     if (timeLeft===0) {
       dummy = 0
-      //   console.log(timeNow);
+      gameOver()
     }
+    if (usedQs.length>14&&newArray.length<1) {
+      gameOver()
+    }
+
   }
   
   
   // Starts timer and shows table wih Questions
   function startGame() {
     if (startTime===0) {
-      setInterval(timeFunction,1000)
+    timeInter = setInterval(timeFunction,1000)
     startTime = moment().format("X");
     console.log(startTime);
   }
@@ -104,34 +115,53 @@ function displayQs(num){
   correctAnswer = questArray[randQ].correct
   console.log("Correct Ans is:")
   console.log(correctAnswer)
-  // console.log(typeof(correctAnswer))
   usedQs.push(randQ)
-  // currentQuestion = randQ 
-  // nextQ()
 }
-
 
 function randomizer(){
   let rand = Math.floor(Math.random()*15)
   return rand
 }
 
+// function tryAgain(){
+//   console.log("I'm here")
+//   nextQ()
+// }
 
-function nextQ(){
-  if (timeLeft===0) {
-    gameOver()
+function nextQ (){
+
+  if ( !stopRandom ) {
+    next = randomizer()
+    if(qsLeft.includes(next)&&qsUsed.length<9){
+      qsUsed.push(next)
+    } else {
+      for (let i = 0; i < qsLeft.length; i++) {
+        if (!qsUsed.includes(i)) {
+          newArray.push(i)
+          stopRandom = true
+        } 
+      }
+    }
+  } 
+  else {
+    if (newArray.length>0) {
+      next = newArray.shift()
+    }
   }
-  let next = randomizer()
-  displayQs(next)
+displayQs(next)
 }
+
 
 function gameOver(){
   endTime = moment().format("X");
-  console.log(endTime)
+  console.log("used Qs below")
+  console.log(usedQs)
+  console.log(newArray)
   score = endTime - startTime
   score = score * usedQs.length
   console.log("Total Score")
   console.log(score)
+  clearInterval(timeInter)
   gameTable.classList.add('d-none');
   // titleEl.classList.add('d-none');
   // startBtn.classList.remove('d-none');
@@ -139,46 +169,26 @@ function gameOver(){
 }
 
 
-function checkAnswer1 (){
-  let userAnswer = 0
-  if (correctAnswer!==userAnswer&&timeLeft>5) {
+function userAns0(){checkAnswer(0)}
+function userAns1(){checkAnswer(1)}
+function userAns2(){checkAnswer(2)}
+function userAns3(){checkAnswer(3)}
+
+
+function checkAnswer (num){
+  if (correctAnswer!==num&&timeLeft>5) {
     timeLeft = timeLeft-5
   }
   nextQ()
 }
-
-function checkAnswer2 (){
-  let userAnswer = 1
-  if (correctAnswer!==userAnswer&&timeLeft>5) {
-    timeLeft = timeLeft-5
-  }
-  nextQ()
-}
-
-function checkAnswer3 (){
-  let userAnswer = 2
-  if (correctAnswer!==userAnswer&&timeLeft>5) {
-    timeLeft = timeLeft-5
-  }
-  nextQ()
-}
-
-function checkAnswer4 (){
-  let userAnswer = 3
-  if (correctAnswer!==userAnswer&&timeLeft>5) {
-    timeLeft = timeLeft-5
-  }
-  nextQ()
-}
-
 
 
   // Event listeners 
   startBtn.addEventListener('click', startGame)
-  ansBtn1.addEventListener('click', checkAnswer1)
-  ansBtn2.addEventListener('click', checkAnswer2)
-  ansBtn3.addEventListener('click', checkAnswer3)
-  ansBtn4.addEventListener('click', checkAnswer4)
+  ansBtn1.addEventListener('click', userAns0)
+  ansBtn2.addEventListener('click', userAns1)
+  ansBtn3.addEventListener('click', userAns2)
+  ansBtn4.addEventListener('click', userAns3)
 
 
 
