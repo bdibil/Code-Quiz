@@ -16,7 +16,7 @@
 
   <nav class="navbar sticky-top navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">High Scores</a>
+      <a class="navbar-brand" href="#"></a>
       <section>
         <p>Time left:</p>
         <p id="t1" class="timer">60</p>
@@ -47,11 +47,17 @@
       <button id="ans4" type="button" class="list-group-item">ans 4</button>
     </div>
   
-
-
-
-
     <br>
+
+    <form>
+      <div id="submitForm" class="container d-none col-2 form-group" style="text-align: center;">
+        <label for="initials">Enter your initials</label>
+        <input type="text" class="form-control" id="userInitials" aria-describedby="initials" placeholder="Initials">
+        <br>
+      <button id="subBtn" type="submit" class="btn btn-primary">Submit</button>
+      <button id="resBtn" type="button" class="btn btn-secondary">Restart</button>
+    </form>
+    
 
     
     <br>
@@ -59,8 +65,9 @@
     
     <!-- Table is hidden on page load (.d-none) AND h3 color white -->
     
-    <table id="scores" class="d-none container table table-striped table-bordered border-primary table-sm col-2" style="text-align: center;" >
-      <h3>Top 3 Scores</h3>
+    <table id="scores" class="d-none container table table-striped table-bordered border-primary table-sm col-3" style="text-align: center;" >
+     <br>
+      <h5>Top 3 Scores</h5>
       <thead>
         <tr>
             <th scope="col">#</th>
@@ -71,16 +78,16 @@
         <tbody>
           <tr>
             <th scope="row">1</th>
-            <td>BD</td>
-            <td>100</td>
+            <td id="in1"></td>
+            <td id="sco1"></td>
           </tr>
             <th scope="row">2</th>
-            <td>BD</td>
-            <td>80</td>
+            <td id="in2"></td>
+            <td id="sco2"></td>
           </tr>
             <th scope="row">3</th>
-            <td>JD</td>
-            <td>50</td>
+            <td id="in3"></td>
+            <td id="sco3"></td>
           </tr>
 
           </tr>
@@ -95,11 +102,12 @@
     type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
   ></script>
-  <script
+
+  <!-- <script
     src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
     crossorigin="anonymous"
-  ></script>
+  ></script> -->
 
     <script src="./assets/js/script.js"></script>
 
