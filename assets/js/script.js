@@ -3,27 +3,21 @@ const gameTable = document.getElementById('game')
 const titleEl = document.getElementById('title')
 const startBtn = document.getElementById('start')
 const t1 = document.getElementById('t1')
-
 const currentQEl = document.getElementById('currentQ')
 const ansBtn1 = document.getElementById('ans1')
 const ansBtn2 = document.getElementById('ans2')
 const ansBtn3 = document.getElementById('ans3')
 const ansBtn4 = document.getElementById('ans4')
-
-
 const in1 = document.getElementById('in1')
 const in2 = document.getElementById('in2')
 const in3 = document.getElementById('in3')
-
 const sco1 = document.getElementById('sco1')
 const sco2 = document.getElementById('sco2')
 const sco3 = document.getElementById('sco3')
-
 const submitForm = document.getElementById('submitForm')
 const submitBtn = document.getElementById('subBtn')
 const resBtn = document.getElementById('resBtn')
 const userInitials = document.getElementById('userInitials')
-
 
 
 var startTime = 0;
@@ -39,7 +33,7 @@ let storedScores = []
 
 
 
-// Constructor function for questions
+// Constructor function for Questions and Highscores  
 function Question(text, choices, correct) {
   this.text = text;
   this.choices = choices;
@@ -50,11 +44,6 @@ function Highscore(initials, score) {
   this.initials = initials
   this.score = score
 }
-
-// let emptyscore = {
-//   initials: "",
-//   score: 0,
-// };
 
 
 
@@ -112,22 +101,6 @@ function timeFunction() {
 
 }
 
-function readHscores (){
-  storedScores = JSON.parse(localStorage.getItem("storedScores"));
-  if (storedScores !== null) {
-    scoresArray = storedScores
-  } 
-}
-
-function saveScore(initials) {
-  let s = new Highscore (initials, score);
-  scoresArray.push(s)
-  localStorage.setItem("storedScores", JSON.stringify(scoresArray))
-  updateScores()
-}
-
-
-
 // Starts timer and shows table wih Questions
 function startGame() {
   readHscores()
@@ -148,7 +121,7 @@ function startGame() {
   displayQs(rand)
 }
 
-
+// Displays Questions to user
 function displayQs(num) {
   let randQ = num
   currentQEl.textContent = questArray[randQ].text
@@ -162,11 +135,13 @@ function displayQs(num) {
   usedQs.push(randQ)
 }
 
+// Random Number gen
 function randomizer() {
   let rand = Math.floor(Math.random() * 15)
   return rand
 }
 
+// Determines next question semi-randomly
 function nextQ() {
   if (!stopRandom) {
     next = randomizer()
@@ -189,30 +164,19 @@ function nextQ() {
   displayQs(next)
 }
 
-
-function updateScores(){
-
-  if (scoresArray !== null) {
-
-    scoresArray.sort((el1, el2) => el2.score - el1.score)
-
-    let initArray = scoresArray.map(el => el.initials)
-    let showScores = scoresArray.map(el => el.score)
-    
-    in1.textContent = initArray[0]
-    in2.textContent = initArray[1]
-    in3.textContent = initArray[2]
-    
-    sco1.textContent = showScores[0]
-    sco2.textContent = showScores[1]
-    sco3.textContent = showScores[2]
-
-  } 
-
+// Check user answers 
+function userAns0() { checkAnswer(0) }
+function userAns1() { checkAnswer(1) }
+function userAns2() { checkAnswer(2) }
+function userAns3() { checkAnswer(3) }
+function checkAnswer(num) {
+  if (correctAnswer !== num && timeLeft > 5) {
+    timeLeft = timeLeft - 5
+  }
+  nextQ()
 }
 
-
-
+// Checks if game is over 
 function gameOver() {
   endTime = moment().format("X");
 
@@ -220,7 +184,7 @@ function gameOver() {
   score += usedQs.length * 2
   clearInterval(timeInter)
   gameTable.classList.add('d-none');
-  // titleEl.classList.add('d-none');
+  resBtn.classList.add('d-none');
   // startBtn.classList.remove('d-none');
   scoresTable.classList.remove('d-none')
   submitForm.classList.remove('d-none')
@@ -228,23 +192,44 @@ function gameOver() {
 }
 
 
+// Store Scores in Local Storage
+function readHscores (){
+  storedScores = JSON.parse(localStorage.getItem("storedScores"));
+  if (storedScores !== null) {
+    scoresArray = storedScores
+  } 
+}
+
+// Sends user's initial to saveScore()
 function saveInitials() {
   let initials = userInitials.value
   saveScore(initials)
 }
 
+// Get initials from user and save score
+function saveScore(initials) {
+  let s = new Highscore (initials, score);
+  scoresArray.push(s)
+  localStorage.setItem("storedScores", JSON.stringify(scoresArray))
+  updateScores()
+  subBtn.classList.add('d-none');
+  resBtn.classList.remove('d-none');
+}
 
-function userAns0() { checkAnswer(0) }
-function userAns1() { checkAnswer(1) }
-function userAns2() { checkAnswer(2) }
-function userAns3() { checkAnswer(3) }
-
-
-function checkAnswer(num) {
-  if (correctAnswer !== num && timeLeft > 5) {
-    timeLeft = timeLeft - 5
-  }
-  nextQ()
+// Updates values of scores table
+function updateScores(){
+  if (scoresArray !== null) {
+    scoresArray.sort((el1, el2) => el2.score - el1.score)
+    let initArray = scoresArray.map(el => el.initials)
+    let showScores = scoresArray.map(el => el.score)
+    
+    in1.textContent = initArray[0]
+    in2.textContent = initArray[1]
+    in3.textContent = initArray[2]
+    sco1.textContent = showScores[0]
+    sco2.textContent = showScores[1]
+    sco3.textContent = showScores[2]
+  } 
 }
 
 
@@ -254,13 +239,10 @@ ansBtn1.addEventListener('click', userAns0)
 ansBtn2.addEventListener('click', userAns1)
 ansBtn3.addEventListener('click', userAns2)
 ansBtn4.addEventListener('click', userAns3)
-
-
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
   saveInitials()
 })
-
 resBtn.addEventListener('click', function (event){
   location.reload()
 })
